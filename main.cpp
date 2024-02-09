@@ -17,7 +17,7 @@ void console_clean()
     system("CLS");
 #endif
 #ifdef __linux__
-    system("clear");
+    system("clear"); /// Din cauza acestei comeni compilatoarele online nu o sa poata sa ruleze jocul.
 #endif
 }
 
@@ -25,11 +25,12 @@ void console_clean()
 void console_sleep()
 {
 #ifdef _WIN32
-    Sleep(2000);
+    sleep(2000);
 #endif
 
 #ifdef __linux__
     // usleep(2000000);
+    flush(cout); /// Flush este neceesar pentru a forta rularea queue-ul format inainte de inghetare. 
     this_thread::sleep_for(chrono::milliseconds(2000));
 #endif
 }
@@ -72,25 +73,17 @@ bool isNumber(string str)
     return true;
 }
 
-bool number_valid(int nr)
+bool number_valid(string number)
 {
-    string number = to_string(nr);
-    if (!isNumber(number))
+    int nr = stoi(number);
+    if (1 <= nr && nr <= 100)
     {
-        console_clean();
-        cout << "Caracterul citit nu este un numar, te rog sa introduci un numar.\n";
+        return true;
     }
     else
     {
-        if (1 <= nr && nr <= 100)
-        {
-            return true;
-        }
-        else
-        {
-            console_clean();
-            return false;
-        }
+        console_clean();
+        return false;
     }
 }
 
@@ -114,7 +107,8 @@ int main()
     while (true)
     {
         int nrAles = number_generator();
-        int nrIncercari = 0, nrCitit;
+        int nrIncercari = 0;
+        string stCitit;
         if (reGame)
         {
             cout << "Jocul a reinceput. Alege un numar intre 1 - 100.\n";
@@ -122,13 +116,37 @@ int main()
         bool ok = false;
         do
         {
-            cin >> nrCitit;
-            while (!number_valid(nrCitit))
+            cin >> stCitit;
+            /// Verificare daca 1. stringul citit este un numar; 2. daca numarul citit apartine intervalului.
+            bool tempOk = false;
+            while (!tempOk)
             {
-                cout << "Numarul citit nu respecta inctervalul. Te rog sa introduci un "
-                        "numar corect.\n";
-                cin >> nrCitit;
+                if (!isNumber(stCitit))
+                {
+                    console_clean();
+                    cout << "Caractere neconforme cerintei. Doar numere.\n";
+                    cin >> stCitit;
+                }
+                else if (!number_valid(stCitit))
+                {
+                    console_clean();
+                    cout << "Numarul introdus nu respecta intervalul dat.\n";
+                    cin >> stCitit;
+                }
+                else
+                {
+                    tempOk = true;
+                }
             }
+            /// Outdated Version.
+            // while (!number_valid(nrCitit))
+            // {
+            //     cout << "Numarul citit nu respecta inctervalul. Te rog sa introduci un "
+            //             "numar corect.\n";
+            //     cin >> nrCitit;
+            // }
+
+            int nrCitit = stoi(stCitit);
             nrIncercari++;
             if (nrAles == nrCitit)
             {
