@@ -107,7 +107,7 @@ int main()
     while (true)
     {
         int nrAles = number_generator();
-        int nrIncercari = 0;
+        int nrIncercari = 0, nrErori = 0;
         string stCitit;
         if (reGame)
         {
@@ -119,24 +119,31 @@ int main()
             cin >> stCitit;
             /// Verificare daca 1. stringul citit este un numar; 2. daca numarul citit apartine intervalului.
             bool tempOk = false;
-            while (!tempOk)
+            while (!tempOk && nrErori < 4)
             {
                 if (!isNumber(stCitit))
                 {
                     console_clean();
-                    cout << "Caractere neconforme cerintei. Doar numere.\n";
+                    cout << "Caractere neconforme cerintei. Doar numere din intervalul 1-100.\n";
                     cin >> stCitit;
+                    nrErori++;
                 }
                 else if (!number_valid(stCitit))
                 {
                     console_clean();
-                    cout << "Numarul introdus nu respecta intervalul dat.\n";
+                    cout << "Numarul introdus nu respecta intervalul 1 - 100.\n";
                     cin >> stCitit;
+                    nrErori++;
                 }
                 else
                 {
                     tempOk = true;
                 }
+            }
+            if(nrErori == 4){
+                console_clean();
+                cout << "Nu ai respectat cerintele de prea multe ori!\n";
+                return 0;
             }
             /// Outdated Version.
             // while (!number_valid(nrCitit))
