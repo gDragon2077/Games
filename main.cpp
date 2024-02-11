@@ -25,7 +25,7 @@ void console_clean()
 void console_sleep()
 {
 #ifdef _WIN32
-    sleep(2000);
+    sleep(2);
 #endif
 
 #ifdef __linux__
