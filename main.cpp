@@ -6,6 +6,12 @@
 #include <string>
 using namespace std;
 
+/*
+Drepturile de autor asupra acestei aplicații aparțin gDragon2077.dev și sunt recunoscute de legislația națională și internațională. 
+Este interzisă orice utilizare neautorizată a acestei aplicații, inclusiv copierea, modificarea, distribuirea sau încălcarea oricărui alt drept al titularului dreptului de autor.
+*/
+
+
 #ifdef _WIN32
 #include <windows.h>
 #endif
