@@ -1,4 +1,4 @@
-/// Game "Tic Tac Toe" made by Satnoianu Dragos-Gabriel
+/// Game "X and 0" made by Satnoianu Dragos-Gabriel
 /// November 2024 - Data Structure - Lab 4
 /// All right reserved 2024
 
